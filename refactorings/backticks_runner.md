@@ -26,14 +26,14 @@ Cocaine::CommandLine::BackticksRunner has no descriptive comment
   
   
  
-        module Cocaine
-          class CommandLine
-            # Class responsible for running commands in backticks
-            class BackticksRunner
-             ...
+            module Cocaine
+              class CommandLine
+                # Class responsible for running commands in backticks
+                class BackticksRunner
+                 ...
+                end
+              end
             end
-          end
-        end
 
 ### 2. [UtilityFunction](https://github.com/troessner/reek/blob/master/docs/Utility-Function.md)
       

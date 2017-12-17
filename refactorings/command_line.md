@@ -79,8 +79,8 @@ DuplicateMethodCall: Cocaine::CommandLine#path_prefix calls 'self.class.path' 2 
     end
     
 
-**Solution**: 
-- Remove method from class and replace its usage with helper method   
+**Solution**:   
+- Remove method from class and replace its usage with helper method  
             
             
     def class_path
@@ -104,7 +104,7 @@ InstanceVariableAssumption: Cocaine::CommandLine assumes too much for instance v
 
 
 **Solution**: 
-- Provide default value   
+- Provide default value 
             
                    
      def path

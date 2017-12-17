@@ -14,111 +14,29 @@
      module Cocaine
        class CommandLine
          class MultiPipe
-           def initialize
-             @stdout_in, @stdout_out = IO.pipe
-             @stderr_in, @stderr_out = IO.pipe
-           end
-     
-           def pipe_options
-             { out: @stdout_out, err: @stderr_out }
-           end
-     
-           def output
-             Output.new(@stdout_output, @stderr_output)
-           end
-     
-           def read_and_then(&block)
-             close_write
-             read
-             block.call
-             close_read
-           end
-     
-           private
-     
-           def close_write
-             @stdout_out.close
-             @stderr_out.close
-           end
-     
-           def read
-             @stdout_output = read_stream(@stdout_in)
-             @stderr_output = read_stream(@stderr_in)
-           end
-     
-           def close_read
-             @stdout_in.close
-             @stderr_in.close
-           end
-     
-           def read_stream(io)
-             result = ""
-             while partial_result = io.read(8192)
-               result << partial_result
-             end
-             result
-           end
+           ...
          end
        end
      end
     
-`class MultiPipe` has method
+Cocaine::CommandLine::MultiPipe has no descriptive comment 
 
-**Solution**: Add descriptive comment  
-**Steps:**: 1 Add comment before class. 
+**Solution**:
+- Add descriptive comment.  
+ 
             
-    module Cocaine
-      class CommandLine
-        # Class responsible for piping commands
-        class MultiPipe
-          def initialize
-            @stdout_in, @stdout_out = IO.pipe
-            @stderr_in, @stderr_out = IO.pipe
-          end
-    
-          def pipe_options
-            {out: @stdout_out, err: @stderr_out}
-          end
-    
-          def output
-            Output.new(@stdout_output, @stderr_output)
-          end
-    
-          def read_and_then(&block)
-            close_write
-            read
-            block.call
-            close_read
-          end
-    
-          private
-    
-          def close_write
-            @stdout_out.close
-            @stderr_out.close
-          end
-    
-          def read
-            @stdout_output = read_stream(@stdout_in)
-            @stderr_output = read_stream(@stderr_in)
-          end
-    
-          def close_read
-            @stdout_in.close
-            @stderr_in.close
-          end
-    
-          def read_stream(io)
-            result = ""
-            while partial_result = io.read(8192)
-              result << partial_result
-            end
-            result
-          end
-        end
-      end
-    end
+        module Cocaine
+           class CommandLine
+             # Class responsible for piping commands
+             class MultiPipe
+               ...
+             end
+           end
+         end
 ### 2. [UtilityFunction](https://github.com/troessner/reek/blob/master/docs/Utility-Function.md)
+
+     
+     
      module Cocaine
        class CommandLine
          # Class responsible for piping commands
@@ -171,57 +89,57 @@
        end
      end
     
-`class MultiPipe` read_stream method doesn't depend on instance state 
+Cocaine::CommandLine::MultiPipe#read_stream doesn't depend on instance state (maybe move it to another class?)
 
-**Solution**: Extract method to utility class
-**Steps:**:  
-- Remove method from class and replace its usaged with utility class
+**Solution**:
+- Remove method from class and replace its usaged with utility class    
+            
             
     
-    module Cocaine
-      class CommandLine
-        # Class responsible for piping commands
-        class MultiPipe
-          def initialize
-            @stdout_in, @stdout_out = IO.pipe
-            @stderr_in, @stderr_out = IO.pipe
+        module Cocaine
+          class CommandLine
+            # Class responsible for piping commands
+            class MultiPipe
+              def initialize
+                @stdout_in, @stdout_out = IO.pipe
+                @stderr_in, @stderr_out = IO.pipe
+              end
+        
+              def pipe_options
+                {out: @stdout_out, err: @stderr_out}
+              end
+        
+              def output
+                Output.new(@stdout_output, @stderr_output)
+              end
+        
+              def read_and_then(&block)
+                close_write
+                read
+                block.call
+                close_read
+              end
+        
+              private
+        
+              def close_write
+                @stdout_out.close
+                @stderr_out.close
+              end
+        
+              def read
+                @stdout_output = Utility.read_stream(@stdout_in)
+                @stderr_output = Utility.read_stream(@stderr_in)
+              end
+        
+              def close_read
+                @stdout_in.close
+                @stderr_in.close
+              end
+        
+        
+            end
           end
-    
-          def pipe_options
-            {out: @stdout_out, err: @stderr_out}
-          end
-    
-          def output
-            Output.new(@stdout_output, @stderr_output)
-          end
-    
-          def read_and_then(&block)
-            close_write
-            read
-            block.call
-            close_read
-          end
-    
-          private
-    
-          def close_write
-            @stdout_out.close
-            @stderr_out.close
-          end
-    
-          def read
-            @stdout_output = Utility.read_stream(@stdout_in)
-            @stderr_output = Utility.read_stream(@stderr_in)
-          end
-    
-          def close_read
-            @stdout_in.close
-            @stderr_in.close
-          end
-    
-    
         end
-      end
-    end
     
 Done

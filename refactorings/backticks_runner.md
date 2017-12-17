@@ -20,8 +20,7 @@ Cocaine::CommandLine::BackticksRunner has no descriptive comment
 
     
 
-**Solution**: Add descriptive comment  
-**Steps:**
+**Solution**: 
 - Add comment before class. 
   
   
@@ -59,8 +58,7 @@ Cocaine::CommandLine::BackticksRunner has no descriptive comment
          end
     
 
-**Solution**: Extract method to utility class.  
-**Steps:**
+**Solution**: 
 - Remove method from class and replace its usaged with utility class
             
     

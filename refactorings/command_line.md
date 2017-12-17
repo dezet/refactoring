@@ -108,6 +108,7 @@ InstanceVariableAssumption: Cocaine::CommandLine assumes too much for instance v
 - Provide default value
             
                    
+                   
      def path
         @supplemental_path ||= {}
      end
@@ -124,6 +125,7 @@ InstanceVariableAssumption: Cocaine::CommandLine assumes too much for instance v
 **Solution**: 
 - Provide default value   
             
+                    
                     
      def output
           @output ||= Output.new
@@ -148,6 +150,7 @@ PrimaDonnaMethod: Cocaine::CommandLine has prima donna method 'fake!'
 - Provide method 'fake', alternative without '!' which should be safe to use.     
             
                     
+                    
     def fake
         @runner = FakeRunner.new
     end
@@ -171,6 +174,7 @@ PrimaDonnaMethod: Cocaine::CommandLine has prima donna method 'unfake!'
 **Solution**: 
 - Provide method 'unfake', alternative without '!' which should be safe to use.   
 
+                 
                     
     def fake
         @runner = FakeRunner.new
@@ -199,6 +203,7 @@ UtilityFunction: Cocaine::CommandLine#bit_bucket doesn't depend on instance stat
 - Copy bit_bucket method to utility class and remove it from CommandLine class.  
 
             
+            
      def command(interpolations = {})
           cmd = [path_prefix, @binary, interpolate(@params, interpolations)]
           cmd << Utility.bit_bucket if @swallow_stderr
@@ -223,6 +228,7 @@ Cocaine::CommandLine tests 'OS.unix?' at least 3 times
 
 **Solution**: 
 - Copy bit_bucket method to utility class and remove it from CommandLine class. (already done)   
+     
      
      
      class Utility
@@ -265,6 +271,7 @@ Cocaine::CommandLine#run has the variable name 'e'
 
 **Solution**: 
 - Change variable name to be more descriptive.  
+     
      
      
      def run(interpolations = {})
@@ -320,6 +327,7 @@ Cocaine::CommandLine#shell_quote doesn't depend on instance state (maybe move it
 - Move method to Utility class. 
      
 
+
      def shell_quote_all_values(values)
           Array(values).map(&Utility.method(:shell_quote)).join(" ")
      end
@@ -343,6 +351,7 @@ UtilityFunction: Cocaine::CommandLine#stringify_keys doesn't depend on instance 
 
 **Solution**: 
 - Move method to Utility class.    
+
 
 
     def interpolate(pattern, interpolations)

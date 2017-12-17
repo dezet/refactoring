@@ -50,8 +50,7 @@ DuplicateMethodCall: Cocaine::CommandLine#initialize calls 'self.class' 2 times
 
 **Solution**: 
 - Introduce helper method   
-  
-    
+
     
         def clazz
             self.class
@@ -81,7 +80,7 @@ DuplicateMethodCall: Cocaine::CommandLine#path_prefix calls 'self.class.path' 2 
     
 
 **Solution**: 
-- Remove method from class and replace its usage with helper method
+- Remove method from class and replace its usage with helper method     
             
             
     def class_path
@@ -105,7 +104,7 @@ InstanceVariableAssumption: Cocaine::CommandLine assumes too much for instance v
 
 
 **Solution**: 
-- Provide default value
+- Provide default value     
             
                    
      def path
@@ -122,7 +121,7 @@ InstanceVariableAssumption: Cocaine::CommandLine assumes too much for instance v
    
 
 **Solution**: 
-- Provide default value
+- Provide default value     
             
                     
      def output
@@ -145,7 +144,7 @@ PrimaDonnaMethod: Cocaine::CommandLine has prima donna method 'fake!'
    
 
 **Solution**: 
-- Provide method 'fake', alternative without '!' which should be safe to use.
+- Provide method 'fake', alternative without '!' which should be safe to use.       
             
                     
     def fake
@@ -169,7 +168,7 @@ PrimaDonnaMethod: Cocaine::CommandLine has prima donna method 'unfake!'
     end
     
 **Solution**: 
-- Provide method 'unfake', alternative without '!' which should be safe to use.
+- Provide method 'unfake', alternative without '!' which should be safe to use.     
 
                     
     def fake
@@ -196,7 +195,7 @@ UtilityFunction: Cocaine::CommandLine#bit_bucket doesn't depend on instance stat
      
 
 **Solution**: 
-- Copy bit_bucket method to utility class and remove it from CommandLine class.
+- Copy bit_bucket method to utility class and remove it from CommandLine class.     
 
             
      def command(interpolations = {})
@@ -222,7 +221,7 @@ Cocaine::CommandLine tests 'OS.unix?' at least 3 times
      
 
 **Solution**: 
-- Copy bit_bucket method to utility class and remove it from CommandLine class. (already done)
+- Copy bit_bucket method to utility class and remove it from CommandLine class. (already done)      
      
      
      class Utility
@@ -264,7 +263,7 @@ Cocaine::CommandLine#run has the variable name 'e'
      
 
 **Solution**: 
-- Change variable name to be more descriptive.
+- Change variable name to be more descriptive.      
      
      
      def run(interpolations = {})
@@ -317,7 +316,7 @@ Cocaine::CommandLine#shell_quote doesn't depend on instance state (maybe move it
      
 
 **Solution**:
-- Move method to Utility class.
+- Move method to Utility class.     
      
 
      def shell_quote_all_values(values)
@@ -342,7 +341,7 @@ UtilityFunction: Cocaine::CommandLine#stringify_keys doesn't depend on instance 
      end
 
 **Solution**: 
-- Move method to Utility class.
+- Move method to Utility class.     
 
 
     def interpolate(pattern, interpolations)

@@ -176,13 +176,13 @@ PrimaDonnaMethod: Cocaine::CommandLine has prima donna method 'unfake!'
 
                  
                     
-    def fake
-        @runner = FakeRunner.new
-    end
-    
-    def fake!
-        @runner = FakeRunner.new
-    end
+        def fake
+            @runner = FakeRunner.new
+        end
+        
+        def fake!
+            @runner = FakeRunner.new
+        end
     
 ### 7. [UtilityFunction](https://github.com/troessner/reek/blob/master/docs/Utility-Function.md)
     
@@ -204,18 +204,18 @@ UtilityFunction: Cocaine::CommandLine#bit_bucket doesn't depend on instance stat
 
             
             
-     def command(interpolations = {})
-          cmd = [path_prefix, @binary, interpolate(@params, interpolations)]
-          cmd << Utility.bit_bucket if @swallow_stderr
-          cmd.join(" ").strip
-     end
-     
-     class Utility
-         ...
-         def self.bit_bucket
-           OS.unix? ? "2>/dev/null" : "2>NUL"
+         def command(interpolations = {})
+              cmd = [path_prefix, @binary, interpolate(@params, interpolations)]
+              cmd << Utility.bit_bucket if @swallow_stderr
+              cmd.join(" ").strip
          end
-     end
+         
+         class Utility
+             ...
+             def self.bit_bucket
+               OS.unix? ? "2>/dev/null" : "2>NUL"
+             end
+         end
     
 ### 7. [RepeatedConditional](https://github.com/troessner/reek/blob/master/docs/Repeated-Conditional.md)
 
@@ -274,32 +274,32 @@ Cocaine::CommandLine#run has the variable name 'e'
      
      
      
-     def run(interpolations = {})
-         @exit_status = nil
-         begin
-              full_command = command(interpolations)
-              log("#{colored("Command")} :: #{full_command}")
-              @output = execute(full_command)
-          rescue Errno::ENOENT => error
-                raise Cocaine::CommandNotFoundError, error.message
-          ensure
-            @exit_status = $?.respond_to?(:exitstatus) ? $?.exitstatus : 0
+         def run(interpolations = {})
+             @exit_status = nil
+             begin
+                  full_command = command(interpolations)
+                  log("#{colored("Command")} :: #{full_command}")
+                  @output = execute(full_command)
+              rescue Errno::ENOENT => error
+                    raise Cocaine::CommandNotFoundError, error.message
+              ensure
+                @exit_status = $?.respond_to?(:exitstatus) ? $?.exitstatus : 0
+             end
+             
+             if @exit_status == 127
+                raise Cocaine::CommandNotFoundError
+             end
+             
+             unless @expected_outcodes.include?(@exit_status)
+                  message = [
+                      "Command '#{full_command}' returned #{@exit_status}. Expected #{@expected_outcodes.join(", ")}",
+                      "Here is the command output: STDOUT:\n", command_output,
+                      "\nSTDERR:\n", command_error_output
+                  ].join("\n")
+                  raise Cocaine::ExitStatusError, message
+             end
+             command_output
          end
-         
-         if @exit_status == 127
-            raise Cocaine::CommandNotFoundError
-         end
-         
-         unless @expected_outcodes.include?(@exit_status)
-              message = [
-                  "Command '#{full_command}' returned #{@exit_status}. Expected #{@expected_outcodes.join(", ")}",
-                  "Here is the command output: STDOUT:\n", command_output,
-                  "\nSTDERR:\n", command_error_output
-              ].join("\n")
-              raise Cocaine::ExitStatusError, message
-         end
-         command_output
-     end
     
 ### 9. [UtilityFunction](https://github.com/troessner/reek/blob/master/docs/Utility-Function.md)
 Cocaine::CommandLine#shell_quote doesn't depend on instance state (maybe move it to another class?)
@@ -328,9 +328,9 @@ Cocaine::CommandLine#shell_quote doesn't depend on instance state (maybe move it
      
 
 
-     def shell_quote_all_values(values)
-          Array(values).map(&Utility.method(:shell_quote)).join(" ")
-     end
+         def shell_quote_all_values(values)
+              Array(values).map(&Utility.method(:shell_quote)).join(" ")
+         end
     
 
 ### 10. [UtilityFunction](https://github.com/troessner/reek/blob/master/docs/Utility-Function.md)
@@ -354,15 +354,15 @@ UtilityFunction: Cocaine::CommandLine#stringify_keys doesn't depend on instance 
 
 
 
-    def interpolate(pattern, interpolations)
-       interpolations = Utility.stringify_keys(interpolations)
-       pattern.gsub(/:\{?(\w+)\b\}?/) do |match|
-         key = match.tr(":{}", "")
-         if interpolations.key?(key)
-           shell_quote_all_values(interpolations[key])
-         else
-           match
-         end
-       end
-    end
+        def interpolate(pattern, interpolations)
+           interpolations = Utility.stringify_keys(interpolations)
+           pattern.gsub(/:\{?(\w+)\b\}?/) do |match|
+             key = match.tr(":{}", "")
+             if interpolations.key?(key)
+               shell_quote_all_values(interpolations[key])
+             else
+               match
+             end
+           end
+        end
 Done

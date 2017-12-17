@@ -7,9 +7,8 @@
 ## Refactorings:
 
 #### 1. [Irresponsible Module](https://github.com/troessner/reek/blob/master/docs/Irresponsible-Module.md)
-     # coding: UTF-8
+Cocaine::CommandLine::BackticksRunner has no descriptive comment 
      
-     require 'climate_control'
      
      module Cocaine
        class CommandLine
@@ -20,35 +19,29 @@
      end
 
     
-Cocaine::CommandLine::BackticksRunner has no descriptive comment
 
 **Solution**: Add descriptive comment  
 **Steps:**
 - Add comment before class. 
   
+  
  
-    module Cocaine
-      class CommandLine
-        # Class responsible for running commands in backticks
-        class BackticksRunner
-         ...
+        module Cocaine
+          class CommandLine
+            # Class responsible for running commands in backticks
+            class BackticksRunner
+             ...
+            end
+          end
         end
-      end
-    end
 
 ### 2. [UtilityFunction](https://github.com/troessner/reek/blob/master/docs/Utility-Function.md)
+      
       module Cocaine
            class CommandLine
              # Class responsible for running commands in backticks
              class BackticksRunner
-               def self.supported?
-                 true
-               end
-         
-               def supported?
-                 self.class.supported?
-               end
-         
+               ...
                def call(command, env = {}, options = {})
                  with_modified_environment(env) do
                    Output.new(`#{command}`)
@@ -65,7 +58,6 @@ Cocaine::CommandLine::BackticksRunner has no descriptive comment
            end
          end
     
-`class MultiPipe` with_modified_environment method doesn't depend on instance state 
 
 **Solution**: Extract method to utility class.  
 **Steps:**
@@ -76,14 +68,7 @@ Cocaine::CommandLine::BackticksRunner has no descriptive comment
           class CommandLine
             # Class responsible for running commands in backticks
             class BackticksRunner
-              def self.supported?
-                true
-              end
-        
-              def supported?
-                self.class.supported?
-              end
-        
+              ...
               def call(command, env = {}, options = {})
                 Utility.with_modified_environment(env) do
                   Output.new(`#{command}`)

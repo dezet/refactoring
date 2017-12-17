@@ -80,18 +80,19 @@ DuplicateMethodCall: Cocaine::CommandLine#path_prefix calls 'self.class.path' 2 
     
 
 **Solution**:   
-- Remove method from class and replace its usage with helper method  
+- Remove method from class and replace its usage with helper method 
             
             
-    def class_path
-      clazz.path
-    end
-    
-    def path_prefix
-        if !class_path.nil? && !class_path.empty?
-            os_path_prefix
+            
+        def class_path
+          clazz.path
         end
-    end
+        
+        def path_prefix
+            if !class_path.nil? && !class_path.empty?
+                os_path_prefix
+            end
+        end
     
 ### 3. [InstanceVariableAssumption](https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md)
 
@@ -104,7 +105,7 @@ InstanceVariableAssumption: Cocaine::CommandLine assumes too much for instance v
 
 
 **Solution**: 
-- Provide default value 
+- Provide default value
             
                    
      def path

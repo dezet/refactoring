@@ -72,24 +72,24 @@ Cocaine::CommandLine::BackticksRunner has no descriptive comment
 - Remove method from class and replace its usaged with utility class
             
     
-    module Cocaine
-      class CommandLine
-        # Class responsible for running commands in backticks
-        class BackticksRunner
-          def self.supported?
-            true
-          end
-    
-          def supported?
-            self.class.supported?
-          end
-    
-          def call(command, env = {}, options = {})
-            Utility.with_modified_environment(env) do
-              Output.new(`#{command}`)
+        module Cocaine
+          class CommandLine
+            # Class responsible for running commands in backticks
+            class BackticksRunner
+              def self.supported?
+                true
+              end
+        
+              def supported?
+                self.class.supported?
+              end
+        
+              def call(command, env = {}, options = {})
+                Utility.with_modified_environment(env) do
+                  Output.new(`#{command}`)
+                end
+              end
             end
           end
         end
-      end
-    end
 Done

@@ -1,6 +1,6 @@
-## Summary
+# Summary
 
-##1. Before 
+## 1. Before 
 
       domc1o@MacBook-Pro-Dominik:/var/www/cocaine_clone/cocaine$ reek -f json lib | jq .[].wiki_link -r  | sort | uniq -c | sort -n
       
@@ -118,7 +118,7 @@
       
       
       
-##1. After 
+## 2. After 
 
       domc1o@MacBook-Pro-Dominik:/private/var/www/cocaine$ reek -f json lib | jq .[].wiki_link -r  | sort | uniq -c | sort -n
          1 https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md

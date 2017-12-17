@@ -1,42 +1,35 @@
 ## Code smells
-    lib/cocaine/command_line/output.rb -- 1 warning:
-     [1]:IrresponsibleModule: Cocaine::CommandLine::Output has no descriptive comment [https://github.com/troessner/reek/blob/master/docs/Irresponsible-Module.md]
+    lib/cocaine/exceptions.rb -- 4 warnings:
+      [4]:IrresponsibleModule: Cocaine::CommandLineError has no descriptive comment [https://github.com/troessner/reek/blob/master/docs/Irresponsible-Module.md]
+      [5]:IrresponsibleModule: Cocaine::CommandNotFoundError has no descriptive comment [https://github.com/troessner/reek/blob/master/docs/Irresponsible-Module.md]
+      [6]:IrresponsibleModule: Cocaine::ExitStatusError has no descriptive comment [https://github.com/troessner/reek/blob/master/docs/Irresponsible-Module.md]
+      [7]:IrresponsibleModule: Cocaine::InterpolationError has no descriptive comment [https://github.com/troessner/reek/blob/master/docs/Irresponsible-Module.md]
 
 ## Refactorings:
 
 #### 1. [Irresponsible Module](https://github.com/troessner/reek/blob/master/docs/Irresponsible-Module.md)
-
 Cocaine::CommandLine::Output has no descriptive comment 
 
-    class Cocaine::CommandLine::Output
-      def initialize(output = nil, error_output = nil)
-        @output = output
-        @error_output = error_output
-      end
-    
-      attr_reader :output, :error_output
-    
-      def to_s
-        output.to_s
-      end
-    end
+       module Cocaine
+         class CommandLineError < StandardError; end
+         class CommandNotFoundError < CommandLineError; end
+         class ExitStatusError < CommandLineError; end
+         class InterpolationError < CommandLineError; end
+       end
     
 
 **Solution**:  
-- Add comment before class. 
+- Add comment describing exceptions.
     
     
-    # Class responsible for writing to console    
-    class Cocaine::CommandLine::Output
-      def initialize(output = nil, error_output = nil)
-        @output = output
-        @error_output = error_output
-      end
-    
-      attr_reader :output, :error_output
-    
-      def to_s
-        output.to_s
-      end
+    module Cocaine
+      # Class representing command line exception
+      class CommandLineError < StandardError; end
+      # Class representing command not found exception
+      class CommandNotFoundError < CommandLineError; end
+      # Class representing command's exit status error.
+      class ExitStatusError < CommandLineError; end
+      # Class representing command interpolation error.
+      class InterpolationError < CommandLineError; end
     end
 Done

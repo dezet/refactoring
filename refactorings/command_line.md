@@ -105,13 +105,13 @@ InstanceVariableAssumption: Cocaine::CommandLine assumes too much for instance v
 
 
 **Solution**: 
-- Provide default value
+- Provide default value 
             
                    
                    
-     def path
-        @supplemental_path ||= {}
-     end
+         def path
+            @supplemental_path ||= {}
+         end
 
 ### 4. [InstanceVariableAssumption](https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md)
 
@@ -123,13 +123,13 @@ InstanceVariableAssumption: Cocaine::CommandLine assumes too much for instance v
    
 
 **Solution**: 
-- Provide default value   
+- Provide default value  
             
                     
                     
-     def output
-          @output ||= Output.new
-     end
+         def output
+              @output ||= Output.new
+         end
 
     
 ### 5. [PrimaDonnaMethod](https://github.com/troessner/reek/blob/master/docs/Prima-Donna-Method.md)
@@ -147,17 +147,17 @@ PrimaDonnaMethod: Cocaine::CommandLine has prima donna method 'fake!'
    
 
 **Solution**: 
-- Provide method 'fake', alternative without '!' which should be safe to use.     
+- Provide method 'fake', alternative without '!' which should be safe to use.   
             
                     
                     
-    def fake
-        @runner = FakeRunner.new
-    end
-    
-    def fake!
-        @runner = FakeRunner.new
-    end
+        def fake
+            @runner = FakeRunner.new
+        end
+        
+        def fake!
+            @runner = FakeRunner.new
+        end
     
 ### 6. [PrimaDonnaMethod](https://github.com/troessner/reek/blob/master/docs/Prima-Donna-Method.md)
 

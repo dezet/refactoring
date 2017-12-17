@@ -52,21 +52,22 @@ DuplicateMethodCall: Cocaine::CommandLine#initialize calls 'self.class' 2 times
 - Introduce helper method
   
     
-    def clazz
-        self.class
-    end
     
-    def initialize(binary, params = "", options = {})
-        @binary            = binary.dup
-        @params            = params.dup
-        @options           = options.dup
-        @runner            = @options.delete(:runner) || clazz.runner
-        @logger            = @options.delete(:logger) || clazz.logger
-        @swallow_stderr    = @options.delete(:swallow_stderr)
-        @expected_outcodes = @options.delete(:expected_outcodes) || [0]
-        @environment       = @options.delete(:environment) || {}
-        @runner_options    = @options.delete(:runner_options) || {}
-    end
+        def clazz
+            self.class
+        end
+        
+        def initialize(binary, params = "", options = {})
+            @binary            = binary.dup
+            @params            = params.dup
+            @options           = options.dup
+            @runner            = @options.delete(:runner) || clazz.runner
+            @logger            = @options.delete(:logger) || clazz.logger
+            @swallow_stderr    = @options.delete(:swallow_stderr)
+            @expected_outcodes = @options.delete(:expected_outcodes) || [0]
+            @environment       = @options.delete(:environment) || {}
+            @runner_options    = @options.delete(:runner_options) || {}
+        end
 
 ### 2. [DuplicateMethodCall](https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md)
 

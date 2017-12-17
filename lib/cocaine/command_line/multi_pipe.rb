@@ -1,5 +1,6 @@
 module Cocaine
   class CommandLine
+    # Class responsible for piping commands
     class MultiPipe
       def initialize
         @stdout_in, @stdout_out = IO.pipe
@@ -7,7 +8,7 @@ module Cocaine
       end
 
       def pipe_options
-        { out: @stdout_out, err: @stderr_out }
+        {out: @stdout_out, err: @stderr_out}
       end
 
       def output
@@ -29,8 +30,8 @@ module Cocaine
       end
 
       def read
-        @stdout_output = read_stream(@stdout_in)
-        @stderr_output = read_stream(@stderr_in)
+        @stdout_output = Utility.read_stream(@stdout_in)
+        @stderr_output = Utility.read_stream(@stderr_in)
       end
 
       def close_read
@@ -38,13 +39,7 @@ module Cocaine
         @stderr_in.close
       end
 
-      def read_stream(io)
-        result = ""
-        while partial_result = io.read(8192)
-          result << partial_result
-        end
-        result
-      end
+
     end
   end
 end

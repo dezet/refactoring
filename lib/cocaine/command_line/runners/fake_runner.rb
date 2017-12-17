@@ -2,6 +2,7 @@
 
 module Cocaine
   class CommandLine
+    # Class representing for fake running (test purposes)
     class FakeRunner
       def self.supported?
         false

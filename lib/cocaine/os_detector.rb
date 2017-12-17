@@ -1,6 +1,7 @@
 # coding: UTF-8
 
 module Cocaine
+  # Class responsible for detecting environment settings
   class OSDetector
     def java?
       arch =~ /java/

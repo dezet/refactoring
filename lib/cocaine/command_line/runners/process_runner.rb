@@ -2,6 +2,7 @@
 
 module Cocaine
   class CommandLine
+    # Class responsible for running commands as processes.
     class ProcessRunner
       def self.available?
         Process.respond_to?(:spawn)

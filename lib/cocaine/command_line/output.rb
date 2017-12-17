@@ -1,3 +1,4 @@
+# Class responsible for writing to console
 class Cocaine::CommandLine::Output
   def initialize(output = nil, error_output = nil)
     @output = output

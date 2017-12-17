@@ -2,10 +2,10 @@
 
 module Cocaine
   class CommandLine
+    # Class responsible for posix like command running.
     class PosixRunner
       def self.available?
         return @available unless @available.nil?
-
         @available = posix_spawn_gem_available?
       end
 

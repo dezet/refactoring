@@ -4,6 +4,7 @@ require 'climate_control'
 
 module Cocaine
   class CommandLine
+    # Class responsible for backticks like command running.
     class BackticksRunner
       def self.supported?
         true
@@ -14,17 +15,10 @@ module Cocaine
       end
 
       def call(command, env = {}, options = {})
-        with_modified_environment(env) do
+        Utility.with_modified_environment(env) do
           Output.new(`#{command}`)
         end
       end
-
-      private
-
-      def with_modified_environment(env, &block)
-        ClimateControl.modify(env, &block)
-      end
-
     end
   end
 end

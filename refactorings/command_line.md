@@ -49,7 +49,7 @@
 DuplicateMethodCall: Cocaine::CommandLine#initialize calls 'self.class' 2 times 
 
 **Solution**: 
-- Introduce helper method
+- Introduce helper method   
   
     
     
